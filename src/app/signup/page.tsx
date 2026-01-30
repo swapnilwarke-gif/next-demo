@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+
+
 export default function SignupPage() {
   const [user, setUser] = React.useState({
     username: "",

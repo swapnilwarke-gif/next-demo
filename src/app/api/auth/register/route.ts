@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
           message: "user with this email already exists",
           data: [],
         },
+        
         {
           status: 400,
         },
