@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
       data: {
         email: body?.email,
         name: body?.name,
-        role: body?.role,
+        role: body?.role || 'Admin',
         password: hashedPassword,
         is_deleted: false,
       },
