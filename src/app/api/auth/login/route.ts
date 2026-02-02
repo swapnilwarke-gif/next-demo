@@ -1,6 +1,6 @@
 import { prisma } from "@/src/config/database";
 import { NextRequest, NextResponse } from "next/server";
-import {  compare } from "bcrypt";
+import { compare } from "bcrypt";
 import { signJwt } from "@/src/app/utils/jwt";
 
 export async function POST(request: NextRequest) {
@@ -17,7 +17,6 @@ export async function POST(request: NextRequest) {
           status: 400,
         },
       );
-      
     }
     const userDetail = await prisma.user.findUnique({
       where: {
@@ -43,7 +42,7 @@ export async function POST(request: NextRequest) {
       );
     }
     const hashedPassword = userDetail?.password ?? "";
-    const passwordCorrect =  await compare(password, hashedPassword);
+    const passwordCorrect = await compare(password, hashedPassword);
 
     if (!passwordCorrect) {
       return NextResponse.json(
@@ -69,7 +68,7 @@ export async function POST(request: NextRequest) {
       role: userDetail?.role,
     });
 
-    return NextResponse.json(
+    const response = NextResponse.json(
       {
         success: true,
         message: "Login Succesfully",
@@ -79,12 +78,15 @@ export async function POST(request: NextRequest) {
         status: 200,
       },
     );
+    response.cookies.set("token",token,{
+      httpOnly: true
+    })
+    return response
   } catch (error) {
     console.error(error);
     return NextResponse.json(
       { success: false, message: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
-
 }

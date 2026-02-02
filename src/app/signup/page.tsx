@@ -23,6 +23,7 @@ export default function SignupPage() {
         email: user.email,
         password: user.password,
       };
+      
       const response = await axios.post("api/auth/register", userData);
       if (response.data?.success == true) {
         // setUser({
