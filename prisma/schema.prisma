@@ -13,14 +13,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
-id                   String                 @id @default(cuid())
-email                String                 @unique(map: "User_email_key")
-name                 String                 
-role                 String  
-password             String?                 @default("")
-createdAt            DateTime                @default(now())
-updatedAt            DateTime                 @updatedAt
-is_deleted           Boolean                  @default(false)
+  id         String   @id @default(cuid())
+  email      String   @unique(map: "User_email_key")
+  name       String
+  role       String
+  password   String?  @default("")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  is_deleted Boolean  @default(false)
+}
+
+model Expense {
+  id               String   @id @default(cuid())
+  expense_type     String   @default("")
+  sub_expense_type String   @default("")
+  amount           Float    @default(0)
+  description      String   @default("")
+  expense_date     DateTime
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  is_deleted       Boolean  @default(false)
+}
+
+model SubExpenseType {
+  id           String   @id @default(cuid())
+  expense_type String   @default("")
+  description  String   @default("")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  is_deleted   Boolean  @default(false)
 }
