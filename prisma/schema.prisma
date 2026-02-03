@@ -34,13 +34,16 @@ model Expense {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
   is_deleted       Boolean  @default(false)
+
+  sub_expense SubExpenseType @relation(fields: [sub_expense_type], references: [id])
 }
 
 model SubExpenseType {
-  id           String   @id @default(cuid())
-  expense_type String   @default("")
-  description  String   @default("")
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  is_deleted   Boolean  @default(false)
+  id           String    @id @default(cuid())
+  expense_type String    @default("")
+  description  String    @default("")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  is_deleted   Boolean   @default(false)
+  expenses     Expense[]
 }

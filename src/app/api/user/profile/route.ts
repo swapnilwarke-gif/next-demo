@@ -10,7 +10,6 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     //   const headers = Object.fromEntries(request.headers.entries());
-
     // const { id: userId } = await params;
     const middlewareValue: string = request.headers.get("x-user") || "";
     if (!middlewareValue) {

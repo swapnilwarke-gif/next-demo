@@ -1,5 +1,3 @@
-
-
 // export async function GET(request: Request) {
 //   try {
 //     const { searchParams } = new URL(request?.url);
@@ -61,7 +59,6 @@
 //   }
 // }
 
-
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/src/config/database";
 
@@ -83,6 +80,22 @@ export async function GET(request: NextRequest) {
       take: params.limit,
       skip: (params.page - 1) * params.limit,
       where,
+      select: {
+        id: true,
+        amount: true,
+        description: true,
+        expense_date: true,
+        expense_type: true,
+        sub_expense_type: true,
+
+        sub_expense: {
+          select: {
+            id: true,
+            expense_type: true,
+            description: true,
+          },
+        },
+      },
     });
 
     return NextResponse.json(
@@ -136,4 +149,3 @@ function buildWhereClause(params: ExpenseQueryParams) {
 
   return where;
 }
-
